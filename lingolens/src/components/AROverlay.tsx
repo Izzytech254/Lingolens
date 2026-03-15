@@ -88,22 +88,22 @@ export function AROverlay({ snapshot, onRetake, onPlayAudio, isAudioPlaying }: A
       {/* Lesson Details Below Image */}
       {snapshot.lesson && (
         <div className="w-full bg-white border-4 border-black p-6 rounded-2xl shadow-xl transform transition-all animate-in slide-in-from-bottom duration-500">
-          <div className="flex justify-between items-start">
-              <div>
-                  <span className="text-xs font-mono uppercase text-blue-600 font-bold mb-2 block">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+              <div className="flex-1 w-full min-w-0">
+                  <span className="text-xs font-mono uppercase text-blue-600 font-bold mb-2 block truncate">
                       Object Detected: {snapshot.lesson.object_name}
                   </span>
-                  <h2 className="text-3xl font-bold text-black mb-1">{snapshot.lesson.detected_language_translation}</h2>
-                  <p className="text-lg text-black font-semibold italic mb-2">"{snapshot.lesson.pronunciation_guide}"</p>
-                  <p className="text-black">{snapshot.lesson.example_sentence}</p>
+                  <h2 className="text-3xl font-bold text-black mb-1 break-words">{snapshot.lesson.detected_language_translation}</h2>
+                  <p className="text-lg text-black font-semibold italic mb-2 break-words">"{snapshot.lesson.pronunciation_guide}"</p>
+                  <p className="text-black text-sm sm:text-base break-words">{snapshot.lesson.example_sentence}</p>
               </div>
               
               <button 
                 onClick={() => onPlayAudio(`${snapshot.lesson!.object_name}. ${snapshot.lesson!.detected_language_translation}. ${snapshot.lesson!.example_sentence}`)}
                 disabled={isAudioPlaying}
-                className={`px-6 py-3 rounded-xl bg-blue-600 text-white shadow-lg active:scale-95 transition-transform ${isAudioPlaying ? 'animate-pulse bg-blue-400' : 'hover:bg-blue-700'}`}
+                className={`w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 text-white shadow-lg active:scale-95 transition-transform shrink-0 ${isAudioPlaying ? 'animate-pulse bg-blue-400' : 'hover:bg-blue-700'}`}
               >
-                  <span className="text-xl font-bold">Speak</span>
+                  <span className="text-xl font-bold text-center block w-full">Speak</span>
               </button>
           </div>
         </div>
