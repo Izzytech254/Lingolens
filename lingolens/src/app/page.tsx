@@ -100,7 +100,8 @@ export default function LingoLensApp() {
     const getLangCode = (lang: string) => {
         const map: Record<string, string> = {
             'Spanish': 'es', 'French': 'fr', 'German': 'de', 
-            'Japanese': 'ja', 'Mandarin': 'zh-CN', 'English': 'en', 'Italian': 'it'
+            'Japanese': 'ja', 'Mandarin': 'zh-CN', 'English': 'en', 'Italian': 'it',
+            'Swahili': 'sw', 'Portuguese': 'pt', 'Korean': 'ko', 'Hindi': 'hi'
         };
         return map[lang] || 'en';
     };
@@ -211,6 +212,12 @@ export default function LingoLensApp() {
                 <option value="French">I speak: French</option>
                 <option value="German">I speak: German</option>
                 <option value="Italian">I speak: Italian</option>
+                <option value="Portuguese">I speak: Portuguese</option>
+                <option value="Japanese">I speak: Japanese</option>
+                <option value="Korean">I speak: Korean</option>
+                <option value="Mandarin">I speak: Mandarin</option>
+                <option value="Hindi">I speak: Hindi</option>
+                <option value="Swahili">I speak: Swahili</option>
             </select>
             <select 
                className="text-xs font-bold border border-blue-600 bg-blue-600 text-white rounded-lg px-2 py-1 outline-none shadow hover:bg-blue-700"
@@ -220,8 +227,14 @@ export default function LingoLensApp() {
                 <option value="Spanish">Learn: Spanish</option>
                 <option value="English">Learn: English</option>
                 <option value="French">Learn: French</option>
+                <option value="German">Learn: German</option>
+                <option value="Italian">Learn: Italian</option>
+                <option value="Portuguese">Learn: Portuguese</option>
                 <option value="Japanese">Learn: Japanese</option>
+                <option value="Korean">Learn: Korean</option>
                 <option value="Mandarin">Learn: Mandarin</option>
+                <option value="Hindi">Learn: Hindi</option>
+                <option value="Swahili">Learn: Swahili</option>
             </select>
 
             <button
