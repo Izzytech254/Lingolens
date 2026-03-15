@@ -36,7 +36,7 @@ export async function POST(req: Request) {
   // If we received a data URI, we may want to upload the raw bytes to Nova directly as well.
   let uploadBuffer: Buffer | null = null;
 
-  const systemPrompt = `You are a helpful language tutor API. Analyze the provided image and return ONLY a raw JSON object (no markdown, no explanation) with the exact keys:
+  const systemPrompt = `You are a highly accurate, native-level language tutor API. Analyze the provided image and return ONLY a raw JSON object (no markdown, no explanation). Make sure the translation and example sentence in ${targetLang} are completely natural, grammatically correct, and contextually appropriate. Use the exact keys:
 {
   "object_name": "string (${sourceLang})",
   "detected_language_translation": "string (${targetLang})",
@@ -164,7 +164,14 @@ The bounding box must be normalized to integers in range 0-1000.`;
         const fallbackPayload = {
           model: 'nova-2-lite-v1',
           messages: [
-            { role: 'user', content: [ { type: 'text', text: 'What is in this image? Return ONLY a raw JSON object describing the primary object and bounding_box.' }, { type: 'image_url', image_url: { url: imageUrl } } ] }
+            { role: 'user', content: [ { type: 'text', text: `What is in this image? Return ONLY a raw JSON object describing the primary object. Make sure the translation to ${targetLang} is highly accurate and natural. Use this exact structure:
+{
+  "object_name": "string (${sourceLang})",
+  "detected_language_translation": "string (${targetLang})",
+  "pronunciation_guide": "string",
+  "example_sentence": "string (${targetLang})",
+  "bounding_box": [ymin, xmin, ymax, xmax]
+}` }, { type: 'image_url', image_url: { url: imageUrl } } ] }
           ],
           temperature: 0.1,
           max_tokens: 8000,
