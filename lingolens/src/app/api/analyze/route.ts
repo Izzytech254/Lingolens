@@ -36,12 +36,12 @@ export async function POST(req: Request) {
   // If we received a data URI, we may want to upload the raw bytes to Nova directly as well.
   let uploadBuffer: Buffer | null = null;
 
-  const systemPrompt = `You are a highly accurate, native-level language tutor API. Analyze the provided image and return ONLY a raw JSON object (no markdown, no explanation). Make sure the translation and example sentence in ${targetLang} are completely natural, grammatically correct, and contextually appropriate. Use the exact keys:
+  const systemPrompt = `You are a highly accurate, native-level language tutor API. Analyze the provided image and return ONLY a raw JSON object (no markdown, no explanation). The user speaks ${sourceLang} and is learning ${targetLang}. Make absolutely sure the object_name is in ${sourceLang}, and the detected_language_translation and example_sentence are in ${targetLang}. Ensure proper grammar and natural phrasing in ${targetLang}. Use the exact keys:
 {
-  "object_name": "string (${sourceLang})",
-  "detected_language_translation": "string (${targetLang})",
-  "pronunciation_guide": "string",
-  "example_sentence": "string (${targetLang})",
+  "object_name": "string (in ${sourceLang})",
+  "detected_language_translation": "string (Translate the object_name into ${targetLang})",
+  "pronunciation_guide": "string (How to pronounce the ${targetLang} word)",
+  "example_sentence": "string (A short, simple example sentence in ${targetLang})",
   "bounding_box": [ymin, xmin, ymax, xmax]
 }
 The bounding box must be normalized to integers in range 0-1000.`;
@@ -124,7 +124,7 @@ The bounding box must be normalized to integers in range 0-1000.`;
         model: 'nova-2-lite-v1',
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: [ { type: 'text', text: 'Identify the primary object and return JSON' }, { type: 'image_url', image_url: { url: imageUrl } } ] }
+          { role: 'user', content: [ { type: 'text', text: `Identify the primary object. What is its name in ${sourceLang}? Translate that name to ${targetLang} and provide an example sentence in ${targetLang}. Return ONLY the specified JSON.` }, { type: 'image_url', image_url: { url: imageUrl } } ] }
         ],
         temperature: 0.1,
         max_tokens: 8000,
@@ -147,7 +147,7 @@ The bounding box must be normalized to integers in range 0-1000.`;
           if (partRef) {
             console.log('[analyze] obtained nova partRef:', partRef);
             // prefer partRef.id as partId
-            payload.messages[1].content = [ { type: 'text', text: 'Identify the primary object and return JSON' }, { type: 'image_url', image_url: { url: String(partRef.id) } } ];
+            payload.messages[1].content = [ { type: 'text', text: `Identify the primary object. What is its name in ${sourceLang}? Translate that name to ${targetLang} and provide an example sentence in ${targetLang}. Return ONLY the specified JSON.` }, { type: 'image_url', image_url: { url: String(partRef.id) } } ];
             await fs.writeFile(`/tmp/lingolens-nova-upload-result-${Date.now()}.json`, JSON.stringify(partRef, null, 2));
           }
         }
@@ -225,7 +225,7 @@ The bounding box must be normalized to integers in range 0-1000.`;
           model: 'nova-2-lite-v1',
           messages: [
             { role: 'system', content: systemPrompt },
-            { role: 'user', content: [ { type: 'text', text: 'Identify the primary object and return JSON' }, { type: 'image_url', image_url: { url: imageUrl } } ] }
+            { role: 'user', content: [ { type: 'text', text: `Identify the primary object. What is its name in ${sourceLang}? Translate that name to ${targetLang} and provide an example sentence in ${targetLang}. Return ONLY the specified JSON.` }, { type: 'image_url', image_url: { url: imageUrl } } ] }
           ],
           temperature: 0.1,
           max_tokens: 8000,

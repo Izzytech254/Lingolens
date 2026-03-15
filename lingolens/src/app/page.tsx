@@ -101,7 +101,7 @@ export default function LingoLensApp() {
         const map: Record<string, string> = {
             'Spanish': 'es-MX', 'French': 'fr-FR', 'German': 'de-DE', 
             'Japanese': 'ja-JP', 'Mandarin': 'zh-CN', 'English': 'en-US', 'Italian': 'it-IT',
-            'Swahili': 'sw-KE', 'Portuguese': 'pt-BR', 'Korean': 'ko-KR', 'Hindi': 'hi-IN'
+            'Swahili': 'sw-TZ', 'Portuguese': 'pt-BR', 'Korean': 'ko-KR', 'Hindi': 'hi-IN'
         };
         return map[lang] || 'en-US';
     };
