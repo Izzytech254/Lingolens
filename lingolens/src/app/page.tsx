@@ -99,11 +99,11 @@ export default function LingoLensApp() {
 
     const getLangCode = (lang: string) => {
         const map: Record<string, string> = {
-            'Spanish': 'es', 'French': 'fr', 'German': 'de', 
-            'Japanese': 'ja', 'Mandarin': 'zh-CN', 'English': 'en', 'Italian': 'it',
-            'Swahili': 'sw', 'Portuguese': 'pt', 'Korean': 'ko', 'Hindi': 'hi'
+            'Spanish': 'es-MX', 'French': 'fr-FR', 'German': 'de-DE', 
+            'Japanese': 'ja-JP', 'Mandarin': 'zh-CN', 'English': 'en-US', 'Italian': 'it-IT',
+            'Swahili': 'sw-KE', 'Portuguese': 'pt-BR', 'Korean': 'ko-KR', 'Hindi': 'hi-IN'
         };
-        return map[lang] || 'en';
+        return map[lang] || 'en-US';
     };
     
     const safetyTimer = setTimeout(resetAudioState, 6000);
